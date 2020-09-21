@@ -5,6 +5,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PetFinderComponent } from './pet-finder/pet-finder.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { HttpClientModule } from '@angular/common/http';
+import { JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
+import { PetFinderService } from './pet-finder/pet-finder.service';
+
+export function jwtOptionsFactory(petFinderTokenService: PetFinderService) {
+  return {
+      tokenGetter: () => petFinderTokenService.getToken(),
+      whitelistedDomains: ['http://localhost:4200/']
+  };
+}
 
 @NgModule({
   declarations: [
@@ -14,9 +24,17 @@ import { NavbarComponent } from './navbar/navbar.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    JwtModule.forRoot({
+      jwtOptionsProvider: {
+        provide: JWT_OPTIONS,
+        useFactory: jwtOptionsFactory,
+        deps: [PetFinderService]
+      }
+    }),
   ],
-  providers: [],
+  providers: [PetFinderService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
