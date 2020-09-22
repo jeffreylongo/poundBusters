@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { HttpHeaders, HttpClient , HttpErrorResponse} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
-// import { getToken } from '@angular/router/src/utils/preactivation';
+// import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 
 const tokenHttpOptions = {
   headers: new HttpHeaders({
@@ -21,33 +21,30 @@ const body = new URLSearchParams();
 body.set('grant_type', grantType);
 body.set('client_id', clientId);
 body.set('client_secret', clientSecret);
-// let token = '';
-
-const httpOptions = {
-  headers: new HttpHeaders({
-    // 'Authorization': `Bearer ${token}`,
-    'Access-Control-Allow-Headers': '*',
-    'Access-Control-Allow-Origin': '*'
-  })
-    .set('Content-Type', 'application/x-www-form-urlencoded')
-};
-
 
 @Injectable({
   providedIn: 'root'
 })
-export class PetFinderService {
+export class PetFinderTokenizerService implements OnInit {
+  ngOnInit(): void {}
 
   getToken(): Observable<any> {
     console.log('PetFinderService getToken() hit');
     return this.httpClient
-      .post(petFinderApiURL, body.toString(), tokenHttpOptions);
+      .post(petFinderApiURL, body.toString(), tokenHttpOptions)
+      .pipe(
+        tap(data => console.log('Data: ' + JSON.stringify(data)))
+      );
   }
 
-  getPets(): Observable<any> {
-    return this.httpClient
-      .get(petFinderSearchURL, httpOptions);
-  }
+  // private handleError(err: HttpErrorResponse){
+  //   let errorMessage: string;
+  //   if (err.error instanceof Error){
+  //     errorMessage = `An error Occured: ${err.error.message}`;
+  //   } else {
+  //     errorMessage = `Error from api: ${err.status}, Body: ${err.error}`;
+  //   }
+  // }
 
   constructor(private httpClient: HttpClient) { }
 }

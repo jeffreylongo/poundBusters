@@ -5,6 +5,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PetFinderComponent } from './pet-finder/pet-finder.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { PetFinderService } from './pet-finder/pet-finder.service';
+import { PetFinderInterceptorService } from './pet-finder/pet-finder-interceptor.service';
+
 
 @NgModule({
   declarations: [
@@ -14,9 +18,13 @@ import { NavbarComponent } from './navbar/navbar.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    PetFinderService,
+    {provide: HTTP_INTERCEPTORS, useClass: PetFinderInterceptorService, multi: true},
+  ],
+  bootstrap: [AppComponent],
 })
 export class AppModule { }
