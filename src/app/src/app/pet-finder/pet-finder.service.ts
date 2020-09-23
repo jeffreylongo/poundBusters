@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient , HttpErrorResponse} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
-// import { getToken } from '@angular/router/src/utils/preactivation';
 
 const tokenHttpOptions = {
   headers: new HttpHeaders({
@@ -13,7 +12,7 @@ const tokenHttpOptions = {
 };
 
 const petFinderApiURL = 'https://api.petfinder.com/v2/oauth2/token';
-const petFinderSearchURL = 'https://api.petfinder.com/v2';
+const petFinderSearchURL = 'https://api.petfinder.com/v2/animals';
 const grantType = 'client_credentials';
 const clientId = 'gAR4IK6gN1eUxuzBO4Kw7Cw4VApFAC5XLrKKyjM41yrNUoamCP';
 const clientSecret = 'qOVO7iz7SVFTwyh6U2UMUxpeHwHQtfmxXNs0EUrn';
@@ -45,6 +44,7 @@ export class PetFinderService {
   }
 
   getPets(): Observable<any> {
+    console.log(`trying to get pets with token: ${localStorage.getItem('token')}`);
     return this.httpClient
       .get(petFinderSearchURL, httpOptions);
   }

@@ -26,6 +26,7 @@ export function jwtOptionsFactory(petFinderTokenService: PetFinderService) {
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    // NgbPaginationModule,
     JwtModule.forRoot({
       jwtOptionsProvider: {
         provide: JWT_OPTIONS,

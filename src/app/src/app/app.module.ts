@@ -8,6 +8,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { PetFinderService } from './pet-finder/pet-finder.service';
 import { PetFinderInterceptorService } from './pet-finder/pet-finder-interceptor.service';
+import { PetFinderTokenizerService } from './pet-finder/pet-finder-tokenizer.service';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { PetFinderInterceptorService } from './pet-finder/pet-finder-interceptor
   ],
   providers: [
     PetFinderService,
+    PetFinderTokenizerService,
     {provide: HTTP_INTERCEPTORS, useClass: PetFinderInterceptorService, multi: true},
   ],
   bootstrap: [AppComponent],
