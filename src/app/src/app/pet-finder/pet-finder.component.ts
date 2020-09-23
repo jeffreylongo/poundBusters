@@ -32,15 +32,6 @@ export class PetFinderComponent implements OnInit {
         }
         console.log(this.pets);
       });
-    // this.getArticles(url: string, articles: any[]) {
-    //   this.httpClient.get(url).subscribe(data => {
-    //     if (articles === undefined) { articles = data['articles']; } else { articles = articles.concat(data['articles']); }
-    //     if (data['next_page'] != null) {
-    //       this.getArticles(data['next_page'], articles);
-    //     } else { console.log('Finished'); }
-    //     this.articles = articles;
-    //   });
-    // }
   }
 
 }
