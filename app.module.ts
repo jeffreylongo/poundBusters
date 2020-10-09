@@ -9,6 +9,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { PetFinderService } from './pet-finder/pet-finder.service';
 import { PetFinderInterceptorService } from './pet-finder/pet-finder-interceptor.service';
 import { PetFinderTokenizerService } from './pet-finder/pet-finder-tokenizer.service';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { PetFinderTokenizerService } from './pet-finder/pet-finder-tokenizer.ser
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    NoopAnimationsModule,
   ],
   providers: [
     PetFinderService,
